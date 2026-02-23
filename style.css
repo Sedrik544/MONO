@@ -1,23 +1,52 @@
-body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-
-.glass-card {
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.05);
+/* Dynamické pozadí */
+.blob-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
 }
 
-.nav-btn {
-    @apply p-4 rounded-full transition-all duration-300 opacity-30;
+.blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: move 20s infinite alternate;
 }
 
-.nav-btn.active {
-    @apply opacity-100 bg-white/10;
+.blob-1 { background: #1e40af; top: -10%; left: -10%; }
+.blob-2 { background: #7e22ce; bottom: -10%; right: -10%; animation-delay: -5s; }
+
+@keyframes move {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 150px) scale(1.2); }
 }
 
-/* Skrytí scrollbaru */
-main::-webkit-scrollbar { display: none; }
-
-/* Animace Tasku */
-.task-item {
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* Karta */
+.main-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
+
+.bar {
+    flex: 1;
+    background: linear-gradient(to top, #3b82f6, #a855f7);
+    border-radius: 99px;
+    animation: barGrow 2s ease-in-out infinite alternate;
+}
+
+@keyframes barGrow {
+    0% { transform: scaleY(0.4); opacity: 0.5; }
+    100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Animace tyčí - různé zpoždění */
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.5s; }
+.bar:nth-child(4) { animation-delay: 0.1s; }
+.bar:nth-child(5) { animation-delay: 0.8s; }
+.bar:nth-child(6) { animation-delay: 0.3s; }
