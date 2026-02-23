@@ -1,0 +1,23 @@
+body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+.glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-btn {
+    @apply p-4 rounded-full transition-all duration-300 opacity-30;
+}
+
+.nav-btn.active {
+    @apply opacity-100 bg-white/10;
+}
+
+/* Skrytí scrollbaru */
+main::-webkit-scrollbar { display: none; }
+
+/* Animace Tasku */
+.task-item {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
