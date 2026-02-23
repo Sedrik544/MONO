@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aura Pulse | Bio-Performance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-white antialiased overflow-hidden">
+
+    <header class="px-6 pt-12 pb-6 flex justify-between items-center fixed top-0 w-full z-40 bg-black/50 backdrop-blur-xl">
+        <div>
+            <p class="text-[10px] uppercase tracking-[0.3em] opacity-40">Dobrý večer</p>
+            <h1 class="text-xl font-light">Pane Sedriku</h1>
+        </div>
+        <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center bg-white/5 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Profil">
+        </div>
+    </header>
+
+    <main class="pt-32 pb-32 px-6 h-screen overflow-y-auto" id="app-content">
+        <section class="space-y-6">
+            <div class="glass-card p-6 rounded-[2rem] relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-6 opacity-10 text-4xl italic font-serif text-white">Bio</div>
+                <p class="text-[10px] uppercase tracking-widest opacity-40 mb-2">Denní připravenost</p>
+                <div class="text-5xl font-light mb-4">98<span class="text-lg opacity-30">%</span></div>
+                <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
+                    <div class="bg-white h-full w-[98%] transition-all duration-1000"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-card p-6 rounded-[2rem]">
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mb-2">Tep</p>
+                    <div class="text-2xl font-light">64 <span class="text-xs opacity-30">BPM</span></div>
+                </div>
+                <div class="glass-card p-6 rounded-[2rem]">
+                    <p class="text-[10px] uppercase tracking-widest opacity-40 mb-2">Spánek</p>
+                    <div class="text-2xl font-light">8.2 <span class="text-xs opacity-30">h</span></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 rounded-[3rem] mt-4 border border-white/5">
+                <h3 class="text-sm uppercase tracking-widest mb-6 text-center">Dnešní Protokol</h3>
+                <div class="space-y-4" id="task-list">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="fixed bottom-0 w-full px-6 pb-10 pt-4 z-50 bg-gradient-to-t from-black via-black/90 to-transparent">
+        <div class="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] flex justify-around items-center p-2">
+            <button class="nav-btn active" onclick="switchTab(this)">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            </button>
+            <button class="nav-btn" onclick="switchTab(this)">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </button>
+            <button class="nav-btn" onclick="switchTab(this)">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
