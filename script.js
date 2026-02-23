@@ -1,53 +1,90 @@
-const phrases = [
-    "Maximum Performance",
-    "Neural Focus Engaged",
-    "Breaking Limits",
-    "Absolute Zero",
-    "Velocity Achieved",
-    "Protocol 77 Active"
-];
+// --- KONFIGURACE ---
+let scene, camera, renderer, crystal, particles;
+const cursor = document.getElementById('cursor');
 
-const aiOutput = document.getElementById('ai-output');
-const terminal = document.getElementById('terminal');
-const trigger = document.getElementById('core-trigger');
-const resetBtn = document.getElementById('reset-btn');
-const clockEl = document.getElementById('clock');
+// --- INICIALIZACE 3D SCÉNY ---
+function init3D() {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-// Hodiny
-setInterval(() => {
-    const now = new Date();
-    clockEl.innerText = now.getHours().toString().padStart(2, '0') + ":" + 
-                        now.getMinutes().toString().padStart(2, '0') + ":" + 
-                        now.getSeconds().toString().padStart(2, '0');
-}, 1000);
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-// Logování do terminálu
-function addLog(text) {
-    const div = document.createElement('div');
-    div.innerText = `> ${text}`;
-    terminal.prepend(div);
-    if (terminal.children.length > 8) terminal.lastChild.remove();
+    // Hlavní objekt - Geometrický krystal
+    const geometry = new THREE.OctahedronGeometry(2, 0);
+    const material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.25,
+        emissive: 0xc5a059,
+        emissiveIntensity: 0.3
+    });
+    crystal = new THREE.Mesh(geometry, material);
+    scene.add(crystal);
+
+    // Digitální prach (Particles)
+    const partGeom = new THREE.BufferGeometry();
+    const partCount = 2000;
+    const posArray = new Float32Array(partCount * 3);
+
+    for(let i=0; i < partCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 20;
+    }
+    partGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const partMat = new THREE.PointsMaterial({ size: 0.005, color: 0xc5a059 });
+    particles = new THREE.Points(partGeom, partMat);
+    scene.add(particles);
+
+    // Osvětlení
+    const pointLight = new THREE.PointLight(0xc5a059, 2, 10);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+    
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    animate();
 }
 
-// Hlavní akce
-trigger.onclick = () => {
-    // Efekt
-    aiOutput.classList.add('glitch-active');
-    addLog("Analyzing neural state...");
+// --- SMYČKA ANIMACE ---
+function animate() {
+    requestAnimationFrame(animate);
     
-    setTimeout(() => {
-        aiOutput.classList.remove('glitch-active');
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-        aiOutput.innerText = randomPhrase;
-        addLog(`Executing: ${randomPhrase}`);
-        
-        // Vibrace
-        if (window.navigator.vibrate) window.navigator.vibrate([30, 50, 30]);
-    }, 600);
-};
+    // Konstantní rotace
+    crystal.rotation.y += 0.002;
+    crystal.rotation.z += 0.001;
+    particles.rotation.y -= 0.0003;
+    
+    renderer.render(scene, camera);
+}
 
-resetBtn.onclick = () => {
-    aiOutput.innerText = "System Reset";
-    addLog("Rebooting sequence...");
-    setTimeout(() => aiOutput.innerText = "Ready to Initialize", 1000);
-};
+// --- EVENT LISTENERY (Živost systému) ---
+window.addEventListener('mousemove', (e) => {
+    // 1. Pohyb vlastního kurzoru
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+
+    // 2. Parallax efekt krystalu (reakce na pohyb myši)
+    if(crystal) {
+        const xNormalized = (e.clientX / window.innerWidth - 0.5) * 2;
+        const yNormalized = (e.clientY / window.innerHeight - 0.5) * 2;
+        
+        // Jemné naklánění krystalu podle myši
+        crystal.rotation.x = yNormalized * 0.4;
+        crystal.rotation.y = xNormalized * 0.4 + (Date.now() * 0.001); // Kombinace s auto-rotací
+    }
+});
+
+// Responzivita (aby to vypadalo skvěle všude)
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Start systému
+init3D();
