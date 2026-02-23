@@ -1,23 +1,53 @@
-// Simulace měnících se čísel, aby web "žil"
-const energyVal = document.getElementById('energy-val');
+const phrases = [
+    "Maximum Performance",
+    "Neural Focus Engaged",
+    "Breaking Limits",
+    "Absolute Zero",
+    "Velocity Achieved",
+    "Protocol 77 Active"
+];
 
+const aiOutput = document.getElementById('ai-output');
+const terminal = document.getElementById('terminal');
+const trigger = document.getElementById('core-trigger');
+const resetBtn = document.getElementById('reset-btn');
+const clockEl = document.getElementById('clock');
+
+// Hodiny
 setInterval(() => {
-    let current = parseInt(energyVal.innerText);
-    // Náhodné kolísání mezi 94 a 99
-    let change = Math.random() > 0.5 ? 1 : -1;
-    let next = current + change;
-    
-    if (next > 99) next = 99;
-    if (next < 94) next = 94;
-    
-    energyVal.innerText = next;
-}, 3000);
+    const now = new Date();
+    clockEl.innerText = now.getHours().toString().padStart(2, '0') + ":" + 
+                        now.getMinutes().toString().padStart(2, '0') + ":" + 
+                        now.getSeconds().toString().padStart(2, '0');
+}, 1000);
 
-// Haptická odezva při kliknutí (jen pro mobily)
-document.querySelectorAll('button, .module').forEach(el => {
-    el.addEventListener('click', () => {
-        if (window.navigator.vibrate) {
-            window.navigator.vibrate(20);
-        }
-    });
-});
+// Logování do terminálu
+function addLog(text) {
+    const div = document.createElement('div');
+    div.innerText = `> ${text}`;
+    terminal.prepend(div);
+    if (terminal.children.length > 8) terminal.lastChild.remove();
+}
+
+// Hlavní akce
+trigger.onclick = () => {
+    // Efekt
+    aiOutput.classList.add('glitch-active');
+    addLog("Analyzing neural state...");
+    
+    setTimeout(() => {
+        aiOutput.classList.remove('glitch-active');
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        aiOutput.innerText = randomPhrase;
+        addLog(`Executing: ${randomPhrase}`);
+        
+        // Vibrace
+        if (window.navigator.vibrate) window.navigator.vibrate([30, 50, 30]);
+    }, 600);
+};
+
+resetBtn.onclick = () => {
+    aiOutput.innerText = "System Reset";
+    addLog("Rebooting sequence...");
+    setTimeout(() => aiOutput.innerText = "Ready to Initialize", 1000);
+};
