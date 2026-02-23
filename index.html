@@ -2,53 +2,51 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>VELOCITY AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX | Neural Interface</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#080808] text-[#00ff41] font-['JetBrains_Mono'] overflow-hidden antialiased">
+<body>
 
-    <div class="scanlines"></div>
+    <div id="cursor"></div>
+    <div id="canvas-container"></div>
 
-    <div class="h-screen flex flex-col p-6 relative z-10">
-        
-        <header class="flex justify-between items-start mb-12 border-l-2 border-[#00ff41] pl-4">
-            <div>
-                <h1 class="text-xs uppercase tracking-[0.4em] opacity-50">User: Sedrik_544</h1>
-                <p id="clock" class="text-xl font-extrabold tracking-tighter"></p>
+    <div id="ui">
+        <header>
+            <div class="logo">Apex</div>
+            <div class="nav-info">
+                Protocol: Active<br>
+                Neural Link: 98%<br>
+                Location: [Zlín, CZ]
             </div>
-            <div class="text-[10px] animate-pulse">● SYSTEM ONLINE</div>
         </header>
 
-        <div class="flex-grow flex flex-col justify-center space-y-12">
+        <main class="main-content">
+            <h1>QUANTUM<br>FLOW</h1>
+            <p class="tagline">
+                Vítejte v budoucnosti osobního managementu. <br>Apex není nástroj, je to vaše digitální rozšíření.
+            </p>
             
-            <div class="relative py-8">
-                <p class="text-[10px] uppercase tracking-[0.6em] mb-4 text-center opacity-40">Tactical Objective</p>
-                <div id="ai-output" class="text-3xl text-center font-extrabold tracking-tight leading-none text-white uppercase italic">
-                    Ready to Initialize
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Focus Score</div>
+                    <div class="stat-value">A+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Neural Load</div>
+                    <div class="stat-value">24.5%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Efficiency</div>
+                    <div class="stat-value">MAX</div>
                 </div>
             </div>
+        </main>
 
-            <div class="relative flex justify-center py-12">
-                <div id="core-trigger" class="w-40 h-40 rounded-full border border-[#00ff41]/30 flex items-center justify-center cursor-pointer group active:scale-90 transition-transform">
-                    <div class="w-32 h-32 rounded-full border-2 border-[#00ff41] flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(0,255,65,0.4)] transition-all">
-                        <div class="text-[10px] font-bold tracking-widest group-hover:scale-110 transition-transform">START</div>
-                    </div>
-                    <div class="absolute inset-0 border border-[#00ff41]/10 rounded-full animate-[spin_10s_linear_infinite]"></div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="mt-auto space-y-4">
-            <div id="terminal" class="h-32 overflow-hidden text-[9px] uppercase opacity-40 space-y-1 pointer-events-none">
-                <div>> Initializing velocity_os...</div>
-                <div>> Neural link established...</div>
-            </div>
-            <button id="reset-btn" class="w-full py-4 border border-[#00ff41]/20 text-[#00ff41] text-[10px] uppercase tracking-[0.5em] hover:bg-[#00ff41]/10 transition-all">
-                Reset System
-            </button>
+        <footer>
+            <div>© 2026 APEX TECHNOLOGIES</div>
+            <div class="footer-meta">HIGH-END COMPUTING UNIT<br>SECURED BY BLOCKCHAIN</div>
         </footer>
     </div>
 
